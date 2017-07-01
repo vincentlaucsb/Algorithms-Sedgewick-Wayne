@@ -1,4 +1,5 @@
 from copy import copy
+import matplotlib.patches as mpatches
 import matplotlib.pylab as plt
 
 class VisualSelectionSort:
@@ -11,7 +12,6 @@ class VisualSelectionSort:
         self.arr = arr
         self.len = len(arr)
         self.trace = []
-        self.current_trace = 0
     
     def _add_trace(self, arr, min_pos, i):
         ''' Arguments:
@@ -65,47 +65,42 @@ class VisualSelectionSort:
             self.arr[min_index] = temp
             
     def plot(self):
-        ''' Plot up to 20 traces at a time '''
-        
-        if self.len > 10:
-            nrow = self.len/2
-            ncol = 2
-        
-            if self.len > 20:
-                nrow = 10
-        else:
-            nrow = self.len
-            ncol = 1
+        nrow = self.len/2
+        ncol = 2
     
         def plot_one(plot_num):
             ''' Color scheme from:  https://color.adobe.com/Red-and-smooth-color-theme-19069/
             '''
             
-            curr_trace = fig.add_subplot(nrow, ncol, i%20 + 1)
+            curr_trace = fig.add_subplot(nrow, ncol, i + 1)
             curr_trace.axis('off')
             
-            curr_trace.bar(
+            untouched = curr_trace.bar(
                 left=self.trace[plot_num]["untouched"]["x"],
                 height=self.trace[plot_num]["untouched"]["y"],
                 color="#E7E8D1")
             
-            curr_trace.bar(
+            compared = curr_trace.bar(
                 left=self.trace[plot_num]["compared"]["x"],
                 height=self.trace[plot_num]["compared"]["y"],
                 color="#424242")
             
-            curr_trace.bar(
+            min = curr_trace.bar(
                 left=self.trace[plot_num]["min"]["x"],
                 height=self.trace[plot_num]["min"]["y"],
                 color="#8E001C")
-                
-            self.current_trace += 1
             
-        fig = plt.figure()
+        # Allocate half an inch for each row, but a minimum of 5 inches total
+        fig = plt.figure(figsize=(8, max(5, 0.5 * nrow)))
         fig.suptitle("Selection Sort Trace")
         
-        for i in range(
-            self.current_trace,
-            min(len(self.arr), self.current_trace + 20)):
-            
+        for i in range(0, len(self.arr)):            
             plot_one(i)
+            
+        # Add legend
+        untouched = mpatches.Patch(color='#E7E8D1')
+        compared = mpatches.Patch(color='#424242')
+        min = mpatches.Patch(color='#8E001C')
+        
+        fig.legend(handles=[untouched, compared, min],
+            labels=['Untouched', 'Compared', 'Minimum'])
