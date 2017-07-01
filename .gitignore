@@ -1,4 +1,14 @@
 *.class
+Other Readings/
+
+# Python
+.ipynb_checkpoints/
+*.pyc
+
+# LaTeX
+*.log
+*.aux
+*.gz
 
 # Mobile Tools for Java (J2ME)
 .mtj.tmp/

@@ -1,0 +1,67 @@
+\documentclass[]{article}
+\usepackage{color}
+
+%opening
+\title{2.1 Elementary Sorts Exercises}
+\author{Vincent La}
+
+\begin{document}
+
+\maketitle
+
+\begin{enumerate}
+	\item[2.1.1] Show, in the style of the example trace with Algorithm 2.1, how selection sort sorts the array E A S Y Q U E S T I O N.
+	
+	\begin{tabular}{c c c c c c c c c c c c c c}
+		i & min & 0 & 1 & 2 & 3 & 4 & 5 & 6 & 7 & 8 & 9 & 10 & 11\\
+		\hline
+		   &   & E & A & S & Y & Q & U & E & S & T & I & O & N \\
+		0  & 1 & E & \color{red}A & S & Y & Q & U & E & S & T & I & O & N \\	
+		1  & 1 & A & \color{red}E & S & Y & Q & U & E & S & T & I & O & N \\
+		2  & 6 & A & E & S & Y & Q & U & \color{red}E & S & T & I & O & N \\
+		3  & 9 & A & E & E & Y & Q & U & S & S & T & \color{red}I & O & N \\
+		4  & 11 & A & E & E & I & Q & U & S & S & T & Y & O & \color{red}N \\
+		5  & 10 & A & E & E & I & N & U & S & S & T & Y & \color{red}O & Q \\
+		6  & 11 & A & E & E & I & N & O & S & S & T & Y & U & \color{red}Q \\
+		7  & 7  & A & E & E & I & N & O & Q & \color{red}S & T & Y & U & S \\
+		8  & 11 & A & E & E & I & N & O & Q & S & T & Y & U & \color{red}S \\
+		9  & 11 & A & E & E & I & N & O & Q & S & S & Y & U & \color{red}T \\
+		10 & 10 & A & E & E & I & N & O & Q & S & S & T & \color{red}U & Y \\
+		   &    & A & E & E & I & N & O & Q & S & S & T & U & Y \\
+	\end{tabular}
+	
+	\item[2.1.2] The maximum number of exchanges involving a specific item is $N$ exchanges. For example, take a list that is already sorted and then add to the beginning an item that is greater in value than the rest of the list. Specifically, consider the list Y A B C D.
+	
+	\begin{tabular}{c c c c c c c}
+		i & min & 0 & 1 & 2 & 3 & 4 \\
+		\hline
+		  &     & Y & A & B & C & D \\
+		0 & 1   & Y & \color{red}A & B & C & D \\
+		1 & 2   & A & Y & \color{red}B & C & D \\
+		2 & 3   & A & B & Y & \color{red}C & D \\
+		3 & 4   & A & B & C & Y & \color{red}D \\
+		4 & 4   & A & B & C & D & \color{red}Y \\
+		  &     & A & B & C & D & Y \\
+	\end{tabular}
+	
+	Here, we can see Y was exchanged $N$ times. Furthermore, because a selection sort performs one exchange for every array index, then there are at most $N$ exchanges for an array of length $N$.
+	
+	\bigskip
+	
+	On the other hand, because there are $N$ items and $N$ exchanges then on average each item gets exchanged once. (Is this right)
+	
+	\item[2.1.3] Give an example of an array of $N$ items that maximizes the number of times the test a[j] $<$ a[min] succeeds (and, therefore, min gets updated) during the operation of selection sort.
+	
+	\paragraph{Answer} Hypothetically, the most that a[j] $<$ a[min] can succeed is every time it is called. In fact, a list in descending order does just that. For example, consider the list E D C B A. Before the first exchange, the following compares are made:
+		\begin{enumerate}
+			\item D $<$ E, so $min = 1$
+			\item C $<$ D, so $min = 2$
+			\item B $<$ C, so $min = 3$
+			\item A $<$ B, so $min = 4$
+		\end{enumerate}
+		
+	(Expand on this answer later)
+\end{enumerate}
+
+\end{document}
+
