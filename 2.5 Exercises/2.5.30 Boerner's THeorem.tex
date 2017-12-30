@@ -1,0 +1,54 @@
+\documentclass[11pt]{article}
+\usepackage[margin=1.25in]{geometry}
+
+\usepackage{graphicx,tikz}
+\usepackage{amsmath,amsthm,mathdots}
+\usepackage{amsfonts}
+\usepackage{amssymb}
+\usepackage{boondox-cal}
+\title{ }
+
+\newtheorem*{thm}{Theorem}
+\newcommand{\spoly}[1]{\mathcal{P}\left(#1\right)}
+\newcommand{\norm}[1]{\left\lVert#1\right\rVert}
+\newcommand{\iprod}[2]{\left\langle#1,#2\right\rangle}
+\newcommand{\tallb}[1]{\left[#1\right]}
+\newcommand{\tallp}[1]{\left(#1\right)}
+\newcommand{\abs}[1]{\left|#1\right|}
+\newcommand{\overbar}[1]{\mkern 1.5mu\overline{\mkern-1.5mu#1\mkern-1.5mu}\mkern 1.5mu}
+\newcommand{\spn}[1]{\text{span}\tallp{#1}}
+\newcommand{\nll}[1]{\text{null}\tallp{#1}}
+\newcommand{\grams}[1]{\frac{#1}{\norm{#1}}}
+\newcommand{\set}[2]{\{\left #1 \text{ } | \text{ } #2 \right\}}
+\newcommand{\range}[1]{\text{range }#1}
+
+\title{Boerner's Theorem}
+\author{Vincent La}
+
+\begin{document}
+\maketitle
+\date
+
+\paragraph{True or False} If you sort each column of a matrix, then sort each row, the columns are still sorted. Justify your answer.
+
+\bigskip
+
+True.
+
+\begin{proof}
+    Given any matrix, suppose we sort each column and then sort each row. For this case, suppose we sort in ascending order. Now, suppose for a contradiction that the columns are no longer sorted. This implies we have a matrix in the form
+    
+    \[\begin{bmatrix}
+    * &  &   & \\
+      &  & b & \geq b \\
+      &  & a & \geq a \\
+    \end{bmatrix}\]
+    
+    where $b$ is some number greater than $a$. Because the rows are sorted, we know that $a$ is greater than or equal to all numbers to the left of it. Furthermore, we know that $b$ was moved during the sort by row operation. 
+    
+    
+\end{proof}
+
+
+
+\end{document}
