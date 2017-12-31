@@ -12,7 +12,6 @@ public class SequentialSearchSTTest extends TestCase {
         return tab;
     }
 
-
     public static void testSize() {
         // Make sure .size() works correctly
         SequentialSearchST<String, Integer> tab = getST();

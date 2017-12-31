@@ -1,5 +1,8 @@
+import java.util.LinkedList;
+import java.util.Queue;
+
 /**
- * Binary Search Tree with Non-Recursive get() & put()
+ * Binary Search Tree with Non-Recursive Method Implementations
  *
  * Exercise 3.2.13 Give nonrecursive implementations of get() and put()
  * Exercise 3.2.14 Give nonrecursive implementations of min(), max(), floor(), ...
@@ -32,7 +35,7 @@ public class BSTNonRecursive<Key extends Comparable<Key>, Value> {
         else           return x.N;
     }
 
-    private Value get(Key key)
+    public Value get(Key key)
     {   // Return value associated with key
         // return null if key not present
         Node x = root;
@@ -55,8 +58,7 @@ public class BSTNonRecursive<Key extends Comparable<Key>, Value> {
                                   // inserting new node on 2nd pass
 
         while (x != null) {
-            // On 2nd loop: update counts
-            if (new_node) x.N = size(x.left) + size(x.right) + 1;
+            if (new_node) x.N += 1; // On 2nd loop: update counts
             parent = x;
 
             int cmp = key.compareTo(x.key);
@@ -74,7 +76,7 @@ public class BSTNonRecursive<Key extends Comparable<Key>, Value> {
                     x = new Node( key,val,1);
 
                     // Update parent links
-                    if (cmp == -1) parent.left = x;
+                    if (cmp < 0) parent.left = x;
                     else parent.right = x;
                 } else {
                     // End of first loop -->
@@ -85,6 +87,101 @@ public class BSTNonRecursive<Key extends Comparable<Key>, Value> {
             }
         }
 
+        // Edge Case: First node is null
+        if (root == null) {
+            root = new Node(key, val, 1);
+        }
+
         return x;
+    }
+
+    public Key min()
+    {   // Return the smallest key
+        Node x = root;
+        while (x.left != null) {
+            x = x.left;
+        }
+
+        return x.key;
+    }
+
+    public Key max()
+    {   // Return the largest key
+        Node x = root;
+        while (x.right != null) {
+            x = x.right;
+        }
+
+        return x.key;
+    }
+
+    public Key floor(Key key)
+    {   // Find node with largest key less than or equal to key
+        Node x = root;
+        Node parent = root;
+
+        while (x != null) {
+            int cmp = key.compareTo(x.key);
+            if (cmp == 0) {
+                return x.key;
+            } else if (cmp < 0) {
+                // Key is less than x, so floor must be in LHS
+                x = x.left;
+            } else {
+                // Key is greater than x, so floor could be in RHS
+                parent = x;
+                x = x.right;
+            }
+
+        }
+
+        // Hit a null node while searching RHS
+        return parent.key;
+    }
+
+    public Key ceiling(Key key)
+    {   // Find smallest key greater than or equal to key
+        Node x = root;
+        Node parent = root;
+
+        while (x != null) {
+            int cmp = key.compareTo(x.key);
+            if (cmp == 0) {
+                return x.key;
+            } else if (cmp < 0) {
+                x = x.right;
+            } else {
+                parent = x;
+                x = x.left;
+            }
+        }
+
+        return parent.key;
+    }
+
+    public Iterable<Key> keys() {
+        return keys(min(), max());
+    }
+
+    public Iterable<Key> keys(Key lo, Key hi)
+    {   // Return all keys between lo & hi
+
+        Queue<Node> nodes = new LinkedList<Node>();
+        Queue<Key> ret = new LinkedList<Key>();
+        Node x;
+        nodes.add(root);
+
+        while (!nodes.isEmpty()) {
+            x = nodes.poll();
+
+            // Get children of x
+            if (x.left != null) nodes.add(x.left);
+            if (x.right != null) nodes.add(x.right);
+
+            if (lo.compareTo(x.key) <= 0 && hi.compareTo(x.key) >= 0)
+                ret.add(x.key);
+        }
+
+        return ret;
     }
 }
