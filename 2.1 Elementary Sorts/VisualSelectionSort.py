@@ -104,3 +104,22 @@ class VisualSelectionSort:
         
         fig.legend(handles=[untouched, compared, min],
             labels=['Untouched', 'Compared', 'Minimum'])
+            
+if __name__ == '__main__':
+    from VisualSelectionSort import VisualSelectionSort
+    from random import uniform
+
+    import matplotlib.pylab as plt
+    
+    a = ['E', 'A', 'S', 'Y', 'Q', 'U', 'E', 'S', 'T', 'I', 'O', 'N']
+    b = VisualSelectionSort(a)
+
+    b.sort()
+    b.plot()
+    
+    x = [uniform(0, 100) for i in range(0, 50)]
+    y = VisualSelectionSort(x)
+    y.sort()
+    y.plot()
+    
+    plt.show()
